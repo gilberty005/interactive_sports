@@ -1,3 +1,24 @@
+Metadata-Version: 2.4
+Name: fantasy-agent-eval
+Version: 0.1.0
+Summary: Tool-using NHL fantasy agent scaffold (Phase A).
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: requests>=2.31.0
+Requires-Dist: python-dotenv>=1.0.1
+Provides-Extra: dev
+Requires-Dist: pytest>=7.4.0; extra == "dev"
+Provides-Extra: openai
+Requires-Dist: openai>=1.40.0; extra == "openai"
+Provides-Extra: gemini
+Requires-Dist: google-generativeai>=0.7.0; extra == "gemini"
+Provides-Extra: anthropic
+Requires-Dist: anthropic>=0.32.0; extra == "anthropic"
+Provides-Extra: llm
+Requires-Dist: openai>=1.40.0; extra == "llm"
+Requires-Dist: google-generativeai>=0.7.0; extra == "llm"
+Requires-Dist: anthropic>=0.32.0; extra == "llm"
+
 # Fantasy Agent Eval (Phase A)
 
 This repo contains a minimal, tool-using NHL fantasy agent scaffold. The agent is grounded: it must call tools for schedules and game logs, and returns a strict JSON final answer with a trace of data used.
