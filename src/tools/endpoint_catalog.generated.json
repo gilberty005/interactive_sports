@@ -1,0 +1,2409 @@
+[
+  {
+    "name": "player_player_game_log_season_game_type",
+    "base": "web",
+    "path": "player/{player}/game-log/{season}/{game_type}",
+    "method": "GET",
+    "category": "players",
+    "cost": 1,
+    "description": "Get Game Log endpoint",
+    "params_schema": {
+      "path": {
+        "player": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "player_player_landing",
+    "base": "web",
+    "path": "player/{player}/landing",
+    "method": "GET",
+    "category": "players",
+    "cost": 1,
+    "description": "Get Specific Player Info endpoint",
+    "params_schema": {
+      "path": {
+        "player": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "player_player_game_log_now",
+    "base": "web",
+    "path": "player/{player}/game-log/now",
+    "method": "GET",
+    "category": "players",
+    "cost": 1,
+    "description": "Get Game Log As of Now endpoint",
+    "params_schema": {
+      "path": {
+        "player": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "skater_stats_leaders_current",
+    "base": "web",
+    "path": "skater-stats-leaders/current",
+    "method": "GET",
+    "category": "skaters",
+    "cost": 1,
+    "description": "Get Current Skater Stats Leaders endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "skater_stats_leaders_season_game_type",
+    "base": "web",
+    "path": "skater-stats-leaders/{season}/{game_type}",
+    "method": "GET",
+    "category": "skaters",
+    "cost": 1,
+    "description": "Get Skater Stats Leaders for a Specific Season and Game Type endpoint",
+    "params_schema": {
+      "path": {
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "goalie_stats_leaders_current",
+    "base": "web",
+    "path": "goalie-stats-leaders/current",
+    "method": "GET",
+    "category": "goalies",
+    "cost": 1,
+    "description": "Get Current Goalie Stats Leaders endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "goalie_stats_leaders_season_game_type",
+    "base": "web",
+    "path": "goalie-stats-leaders/{season}/{game_type}",
+    "method": "GET",
+    "category": "goalies",
+    "cost": 1,
+    "description": "Get Goalie Stats Leaders by Season endpoint",
+    "params_schema": {
+      "path": {
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "player_spotlight",
+    "base": "web",
+    "path": "player-spotlight",
+    "method": "GET",
+    "category": "player_spotlight",
+    "cost": 1,
+    "description": "Get Players endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "standings_now",
+    "base": "web",
+    "path": "standings/now",
+    "method": "GET",
+    "category": "standings",
+    "cost": 2,
+    "description": "Get Standings endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "standings_date",
+    "base": "web",
+    "path": "standings/{date}",
+    "method": "GET",
+    "category": "standings",
+    "cost": 2,
+    "description": "Get Standings by Date endpoint",
+    "params_schema": {
+      "path": {
+        "date": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "standings_season",
+    "base": "web",
+    "path": "standings-season",
+    "method": "GET",
+    "category": "standings",
+    "cost": 2,
+    "description": "Get Standings information for each Season endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "club_stats_team_now",
+    "base": "web",
+    "path": "club-stats/{team}/now",
+    "method": "GET",
+    "category": "stats",
+    "cost": 1,
+    "description": "Get Club Stats Now endpoint",
+    "params_schema": {
+      "path": {
+        "team": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "club_stats_season_team",
+    "base": "web",
+    "path": "club-stats-season/{team}",
+    "method": "GET",
+    "category": "stats",
+    "cost": 1,
+    "description": "Get Club Stats for the Season for a Team endpoint",
+    "params_schema": {
+      "path": {
+        "team": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "club_stats_team_season_game_type",
+    "base": "web",
+    "path": "club-stats/{team}/{season}/{game_type}",
+    "method": "GET",
+    "category": "stats",
+    "cost": 1,
+    "description": "Get Club Stats by Season and Game Type endpoint",
+    "params_schema": {
+      "path": {
+        "team": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "scoreboard_team_now",
+    "base": "web",
+    "path": "scoreboard/{team}/now",
+    "method": "GET",
+    "category": "stats",
+    "cost": 1,
+    "description": "Get Team Scoreboard endpoint",
+    "params_schema": {
+      "path": {
+        "team": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "roster_team_current",
+    "base": "web",
+    "path": "roster/{team}/current",
+    "method": "GET",
+    "category": "roster",
+    "cost": 2,
+    "description": "Get Team Roster As of Now endpoint",
+    "params_schema": {
+      "path": {
+        "team": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "roster_team_season",
+    "base": "web",
+    "path": "roster/{team}/{season}",
+    "method": "GET",
+    "category": "roster",
+    "cost": 2,
+    "description": "Get Team Roster by Season endpoint",
+    "params_schema": {
+      "path": {
+        "team": "string",
+        "season": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "roster_season_team",
+    "base": "web",
+    "path": "roster-season/{team}",
+    "method": "GET",
+    "category": "roster",
+    "cost": 2,
+    "description": "Get Roster Season for Team endpoint",
+    "params_schema": {
+      "path": {
+        "team": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "prospects_team",
+    "base": "web",
+    "path": "prospects/{team}",
+    "method": "GET",
+    "category": "roster",
+    "cost": 2,
+    "description": "Get Team Prospects endpoint",
+    "params_schema": {
+      "path": {
+        "team": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "club_schedule_season_team_now",
+    "base": "web",
+    "path": "club-schedule-season/{team}/now",
+    "method": "GET",
+    "category": "schedule",
+    "cost": 2,
+    "description": "Get Team Season Schedule As of Now endpoint",
+    "params_schema": {
+      "path": {
+        "team": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "club_schedule_season_team_season",
+    "base": "web",
+    "path": "club-schedule-season/{team}/{season}",
+    "method": "GET",
+    "category": "schedule",
+    "cost": 2,
+    "description": "Get Team Season Schedule endpoint",
+    "params_schema": {
+      "path": {
+        "team": "string",
+        "season": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "club_schedule_team_month_now",
+    "base": "web",
+    "path": "club-schedule/{team}/month/now",
+    "method": "GET",
+    "category": "schedule",
+    "cost": 2,
+    "description": "Get Month Schedule As of Now endpoint",
+    "params_schema": {
+      "path": {
+        "team": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "club_schedule_team_month_month",
+    "base": "web",
+    "path": "club-schedule/{team}/month/{month}",
+    "method": "GET",
+    "category": "schedule",
+    "cost": 2,
+    "description": "Get Month Schedule endpoint",
+    "params_schema": {
+      "path": {
+        "team": "string",
+        "month": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "club_schedule_team_week_date",
+    "base": "web",
+    "path": "club-schedule/{team}/week/{date}",
+    "method": "GET",
+    "category": "schedule",
+    "cost": 2,
+    "description": "Get Week Schedule endpoint",
+    "params_schema": {
+      "path": {
+        "team": "string",
+        "date": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "club_schedule_team_week_now",
+    "base": "web",
+    "path": "club-schedule/{team}/week/now",
+    "method": "GET",
+    "category": "schedule",
+    "cost": 2,
+    "description": "Get Week Schedule As of Now endpoint",
+    "params_schema": {
+      "path": {
+        "team": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "schedule_now",
+    "base": "web",
+    "path": "schedule/now",
+    "method": "GET",
+    "category": "schedule",
+    "cost": 2,
+    "description": "Get Current Schedule endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "schedule_date",
+    "base": "web",
+    "path": "schedule/{date}",
+    "method": "GET",
+    "category": "schedule",
+    "cost": 2,
+    "description": "Get Schedule by Date endpoint",
+    "params_schema": {
+      "path": {
+        "date": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "schedule_calendar_now",
+    "base": "web",
+    "path": "schedule-calendar/now",
+    "method": "GET",
+    "category": "schedule_calendar",
+    "cost": 2,
+    "description": "Get Schedule Calendar As of Now endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "schedule_calendar_date",
+    "base": "web",
+    "path": "schedule-calendar/{date}",
+    "method": "GET",
+    "category": "schedule_calendar",
+    "cost": 2,
+    "description": "Get Schedule Calendar for a Specific Date endpoint",
+    "params_schema": {
+      "path": {
+        "date": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "score_now",
+    "base": "web",
+    "path": "score/now",
+    "method": "GET",
+    "category": "daily_scores",
+    "cost": 1,
+    "description": "Get Daily Scores As of Now endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "score_date",
+    "base": "web",
+    "path": "score/{date}",
+    "method": "GET",
+    "category": "daily_scores",
+    "cost": 1,
+    "description": "Get Daily Scores by Date endpoint",
+    "params_schema": {
+      "path": {
+        "date": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "scoreboard_now",
+    "base": "web",
+    "path": "scoreboard/now",
+    "method": "GET",
+    "category": "daily_scores",
+    "cost": 1,
+    "description": "Get Scoreboard endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "where_to_watch",
+    "base": "web",
+    "path": "where-to-watch",
+    "method": "GET",
+    "category": "where_to_watch",
+    "cost": 1,
+    "description": "Get Streams endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "gamecenter_game_id_play_by_play",
+    "base": "web",
+    "path": "gamecenter/{game_id}/play-by-play",
+    "method": "GET",
+    "category": "game_events",
+    "cost": 3,
+    "description": "Get Play By Play endpoint",
+    "params_schema": {
+      "path": {
+        "game_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "gamecenter_game_id_landing",
+    "base": "web",
+    "path": "gamecenter/{game_id}/landing",
+    "method": "GET",
+    "category": "game_events",
+    "cost": 3,
+    "description": "Get Landing endpoint",
+    "params_schema": {
+      "path": {
+        "game_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "gamecenter_game_id_boxscore",
+    "base": "web",
+    "path": "gamecenter/{game_id}/boxscore",
+    "method": "GET",
+    "category": "game_events",
+    "cost": 3,
+    "description": "Get Boxscore endpoint",
+    "params_schema": {
+      "path": {
+        "game_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "wsc_game_story_game_id",
+    "base": "web",
+    "path": "wsc/game-story/{game_id}",
+    "method": "GET",
+    "category": "game_events",
+    "cost": 3,
+    "description": "Get Game Story endpoint",
+    "params_schema": {
+      "path": {
+        "game_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "network_tv_schedule_date",
+    "base": "web",
+    "path": "network/tv-schedule/{date}",
+    "method": "GET",
+    "category": "network",
+    "cost": 2,
+    "description": "Get TV Schedule for a Specific Date endpoint",
+    "params_schema": {
+      "path": {
+        "date": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "network_tv_schedule_now",
+    "base": "web",
+    "path": "network/tv-schedule/now",
+    "method": "GET",
+    "category": "network",
+    "cost": 2,
+    "description": "Get Current TV Schedule endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "partner_game_country_code_now",
+    "base": "web",
+    "path": "partner-game/{country_code}/now",
+    "method": "GET",
+    "category": "odds",
+    "cost": 1,
+    "description": "Get Partner Game Odds endpoint",
+    "params_schema": {
+      "path": {
+        "country_code": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "playoff_series_carousel_season",
+    "base": "web",
+    "path": "playoff-series/carousel/{season}/",
+    "method": "GET",
+    "category": "overview",
+    "cost": 1,
+    "description": "Playoff Series Carousel endpoint",
+    "params_schema": {
+      "path": {
+        "season": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "schedule_playoff_series_season_series_letter",
+    "base": "web",
+    "path": "schedule/playoff-series/{season}/{series_letter}/",
+    "method": "GET",
+    "category": "schedule",
+    "cost": 2,
+    "description": "Get Playoff Series Schedule endpoint",
+    "params_schema": {
+      "path": {
+        "season": "string",
+        "series_letter": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "playoff_bracket_year",
+    "base": "web",
+    "path": "playoff-bracket/{year}",
+    "method": "GET",
+    "category": "bracket",
+    "cost": 1,
+    "description": "Get Playoff Bracket endpoint",
+    "params_schema": {
+      "path": {
+        "year": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "season",
+    "base": "web",
+    "path": "season",
+    "method": "GET",
+    "category": "season",
+    "cost": 1,
+    "description": "Get Seasons endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "draft_rankings_now",
+    "base": "web",
+    "path": "draft/rankings/now",
+    "method": "GET",
+    "category": "draft",
+    "cost": 1,
+    "description": "Get Draft Rankings endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "draft_rankings_season_prospect_category",
+    "base": "web",
+    "path": "draft/rankings/{season}/{prospect_category}",
+    "method": "GET",
+    "category": "draft",
+    "cost": 1,
+    "description": "Get Draft Rankings by Date endpoint",
+    "params_schema": {
+      "path": {
+        "season": "string",
+        "prospect_category": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "draft_tracker_picks_now",
+    "base": "web",
+    "path": "draft-tracker/picks/now",
+    "method": "GET",
+    "category": "draft",
+    "cost": 1,
+    "description": "Get Draft Tracker Now endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "draft_picks_now",
+    "base": "web",
+    "path": "draft/picks/now",
+    "method": "GET",
+    "category": "draft",
+    "cost": 1,
+    "description": "Get Draft Picks Now endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "draft_picks_season_round",
+    "base": "web",
+    "path": "draft/picks/{season}/{round}",
+    "method": "GET",
+    "category": "draft",
+    "cost": 1,
+    "description": "Get Draft Picks endpoint",
+    "params_schema": {
+      "path": {
+        "season": "string",
+        "round": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "meta",
+    "base": "web",
+    "path": "meta",
+    "method": "GET",
+    "category": "meta",
+    "cost": 1,
+    "description": "Get Meta Information endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "meta_game_game_id",
+    "base": "web",
+    "path": "meta/game/{game_id}",
+    "method": "GET",
+    "category": "meta",
+    "cost": 1,
+    "description": "Get Game Information endpoint",
+    "params_schema": {
+      "path": {
+        "game_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "location",
+    "base": "web",
+    "path": "location",
+    "method": "GET",
+    "category": "meta",
+    "cost": 1,
+    "description": "Get Location endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "meta_playoff_series_year_series_letter",
+    "base": "web",
+    "path": "meta/playoff-series/{year}/{series_letter}",
+    "method": "GET",
+    "category": "meta",
+    "cost": 1,
+    "description": "Get Playoff Series Metadata endpoint",
+    "params_schema": {
+      "path": {
+        "year": "string",
+        "series_letter": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "postal_lookup_postalcode",
+    "base": "web",
+    "path": "postal-lookup/{postalCode}",
+    "method": "GET",
+    "category": "postal_lookup",
+    "cost": 1,
+    "description": "Get Postal Code Information endpoint",
+    "params_schema": {
+      "path": {
+        "postalCode": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "ppt_replay_goal_game_id_event_number",
+    "base": "web",
+    "path": "ppt-replay/goal/{game_id}/{event_number}",
+    "method": "GET",
+    "category": "game_replays",
+    "cost": 1,
+    "description": "Get Goal Replay endpoint",
+    "params_schema": {
+      "path": {
+        "game_id": "string",
+        "event_number": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "ppt_replay_game_id_event_number",
+    "base": "web",
+    "path": "ppt-replay/{game_id}/{event_number}",
+    "method": "GET",
+    "category": "game_replays",
+    "cost": 1,
+    "description": "Get Play Replay endpoint",
+    "params_schema": {
+      "path": {
+        "game_id": "string",
+        "event_number": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "gamecenter_game_id_right_rail",
+    "base": "web",
+    "path": "gamecenter/{game_id}/right-rail",
+    "method": "GET",
+    "category": "additional_game_content",
+    "cost": 3,
+    "description": "Get Game Right Rail Content endpoint",
+    "params_schema": {
+      "path": {
+        "game_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "wsc_play_by_play_game_id",
+    "base": "web",
+    "path": "wsc/play-by-play/{game_id}",
+    "method": "GET",
+    "category": "additional_game_content",
+    "cost": 3,
+    "description": "Get WSC Play By Play endpoint",
+    "params_schema": {
+      "path": {
+        "game_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "model_v1_openapi_json",
+    "base": "web",
+    "path": "model/v1/openapi.json",
+    "method": "GET",
+    "category": "openapi_specification",
+    "cost": 1,
+    "description": "Get OpenAPI Specification endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_detail_team_id_season_game_type",
+    "base": "web",
+    "path": "edge/team-detail/{team_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Details endpoint",
+    "params_schema": {
+      "path": {
+        "team_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_detail_team_id_now",
+    "base": "web",
+    "path": "edge/team-detail/{team_id}/now",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Details endpoint",
+    "params_schema": {
+      "path": {
+        "team_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_detail_season_game_type",
+    "base": "web",
+    "path": "edge/team-detail/{season}/{game_type}",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Landing endpoint",
+    "params_schema": {
+      "path": {
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_detail_now",
+    "base": "web",
+    "path": "edge/team-detail/now",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Landing endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_comparison_team_id_season_game_type",
+    "base": "web",
+    "path": "edge/team-comparison/{team_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Comparison endpoint",
+    "params_schema": {
+      "path": {
+        "team_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_comparison_team_id_now",
+    "base": "web",
+    "path": "edge/team-comparison/{team_id}/now",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Comparison endpoint",
+    "params_schema": {
+      "path": {
+        "team_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_skating_distance_top_10_positions_strength_sort_by_season_game_type",
+    "base": "web",
+    "path": "edge/team-skating-distance-top-10/{positions}/{strength}/{sort_by}/{season}{game_type}",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Skating Distance - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "positions": "string",
+        "strength": "string",
+        "sort_by": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_skating_distance_top_10_positions_strength_sort_by_now",
+    "base": "web",
+    "path": "edge/team-skating-distance-top-10/{positions}/{strength}/{sort_by}/now",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Skating Distance - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "positions": "string",
+        "strength": "string",
+        "sort_by": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_skating_distance_detail_team_id_season_game_type",
+    "base": "web",
+    "path": "edge/team-skating-distance-detail/{team_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Skating Distance - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "team_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_skating_distance_detail_team_id_now",
+    "base": "web",
+    "path": "edge/team-skating-distance-detail/{team_id}/now",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Skating Distance - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "team_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_skating_speed_top_10_position_sort_by_season_game_type",
+    "base": "web",
+    "path": "edge/team-skating-speed-top-10/{position}/{sort_by}/{season}/{game_type}",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Skating Speed - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "position": "string",
+        "sort_by": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_skating_speed_detail_team_id_season_game_type",
+    "base": "web",
+    "path": "edge/team-skating-speed-detail/{team_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Skating Speed - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "team_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_skating_speed_detail_team_id_now",
+    "base": "web",
+    "path": "edge/team-skating-speed-detail/{team_id}/now",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Skating Speed - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "team_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_zone_time_top_10_strength_sort_by_season_game_type",
+    "base": "web",
+    "path": "edge/team-zone-time-top-10/{strength}/{sort_by}/{season}/{game_type}",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Zone Time - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "strength": "string",
+        "sort_by": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_zone_time_top_10_strength_sort_by_now",
+    "base": "web",
+    "path": "edge/team-zone-time-top-10/{strength}/{sort_by}/now",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Zone Time - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "strength": "string",
+        "sort_by": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_zone_time_details_team_id_season_game_type",
+    "base": "web",
+    "path": "edge/team-zone-time-details/{team_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Zone Time - Details endpoint",
+    "params_schema": {
+      "path": {
+        "team_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_zone_time_details_team_id_now",
+    "base": "web",
+    "path": "edge/team-zone-time-details/{team_id}/now",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Zone Time - Details endpoint",
+    "params_schema": {
+      "path": {
+        "team_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_shot_speed_top_10_positions_sort_by_season_game_type",
+    "base": "web",
+    "path": "edge/team-shot-speed-top-10/{positions}/{sort_by}/{season}/{game_type}",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Shot Speed - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "positions": "string",
+        "sort_by": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_shot_speed_top_10_positions_sort_by_now",
+    "base": "web",
+    "path": "edge/team-shot-speed-top-10/{positions}/{sort_by}/now",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Shot Speed - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "positions": "string",
+        "sort_by": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_shot_speed_detail_team_id_season_game_type",
+    "base": "web",
+    "path": "edge/team-shot-speed-detail/{team_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Shot Speed - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "team_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_shot_speed_detail_team_id_now",
+    "base": "web",
+    "path": "edge/team-shot-speed-detail/{team_id}/now",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Shot Speed - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "team_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_shot_location_top_10_position_category_sort_by_season_game_type",
+    "base": "web",
+    "path": "edge/team-shot-location-top-10/{position}/{category}/{sort_by}/{season}/{game_type}",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Shot Location - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "position": "string",
+        "category": "string",
+        "sort_by": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_shot_location_top_10_position_category_sort_by_now",
+    "base": "web",
+    "path": "edge/team-shot-location-top-10/{position}/{category}/{sort_by}/now",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Shot Location - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "position": "string",
+        "category": "string",
+        "sort_by": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_shot_location_detail_team_id_season_game_type",
+    "base": "web",
+    "path": "edge/team-shot-location-detail/{team_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Shot Location - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "team_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_team_shot_location_detail_team_id_now",
+    "base": "web",
+    "path": "edge/team-shot-location-detail/{team_id}/now",
+    "method": "GET",
+    "category": "team_data",
+    "cost": 4,
+    "description": "Team Shot Location - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "team_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_detail_player_id_season_game_type",
+    "base": "web",
+    "path": "edge/skater-detail/{player_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_detail_player_id_now",
+    "base": "web",
+    "path": "edge/skater-detail/{player_id}/now",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_landing_season_game_type",
+    "base": "web",
+    "path": "edge/skater-landing/{season}/{game_type}",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Landing endpoint",
+    "params_schema": {
+      "path": {
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_landing_now",
+    "base": "web",
+    "path": "edge/skater-landing/now",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Landing endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_comparison_player_id_season_game_type",
+    "base": "web",
+    "path": "edge/skater-comparison/{player_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Comparison endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_comparison_player_id_now",
+    "base": "web",
+    "path": "edge/skater-comparison/{player_id}/now",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Comparison endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_distance_top_10_positions_strength_sort_by_season_game_type",
+    "base": "web",
+    "path": "edge/skater-distance-top-10/{positions}/{strength}/{sort_by}/{season}/{game_type}",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Distance - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "positions": "string",
+        "strength": "string",
+        "sort_by": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_distance_top_10_positions_strength_sort_by_now",
+    "base": "web",
+    "path": "edge/skater-distance-top-10/{positions}/{strength}/{sort_by}/now",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Distance - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "positions": "string",
+        "strength": "string",
+        "sort_by": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_skating_distance_detail_player_id_season_game_type",
+    "base": "web",
+    "path": "edge/skater-skating-distance-detail/{player_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Skating Distance - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_skating_distance_detail_player_id_now",
+    "base": "web",
+    "path": "edge/skater-skating-distance-detail/{player_id}/now",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Skating Distance - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_speed_top_10_positions_sort_by_season_game_type",
+    "base": "web",
+    "path": "edge/skater-speed-top-10/{positions}/{sort_by}/{season}/{game_type}",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Speed - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "positions": "string",
+        "sort_by": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_speed_top_10_positions_sort_by_now",
+    "base": "web",
+    "path": "edge/skater-speed-top-10/{positions}/{sort_by}/now",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Speed - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "positions": "string",
+        "sort_by": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_skating_speed_detail_player_id_season_game_type",
+    "base": "web",
+    "path": "edge/skater-skating-speed-detail/{player_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Skating Speed - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_skating_speed_detail_player_id_now",
+    "base": "web",
+    "path": "edge/skater-skating-speed-detail/{player_id}/now",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Skating Speed - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_zone_time_top_10_positions_strength_sort_by_season_game_type",
+    "base": "web",
+    "path": "edge/skater-zone-time-top-10/{positions}/{strength}/{sort_by}/{season}/{game_type}",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Zone Time - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "positions": "string",
+        "strength": "string",
+        "sort_by": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_zone_time_top_10_positions_strength_sort_by_now",
+    "base": "web",
+    "path": "edge/skater-zone-time-top-10/{positions}/{strength}/{sort_by}/now",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Zone Time - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "positions": "string",
+        "strength": "string",
+        "sort_by": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_zone_time_player_id_season_game_type",
+    "base": "web",
+    "path": "edge/skater-zone-time/{player_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Zone Time - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_zone_time_player_id_now",
+    "base": "web",
+    "path": "edge/skater-zone-time/{player_id}/now",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Zone Time - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_shot_speed_top_10_positions_sort_by_season_game_type",
+    "base": "web",
+    "path": "edge/skater-shot-speed-top-10/{positions}/{sort_by}/{season}/{game_type}",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Shot Speed - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "positions": "string",
+        "sort_by": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_shot_speed_top_10_positions_sort_by_now",
+    "base": "web",
+    "path": "edge/skater-shot-speed-top-10/{positions}/{sort_by}/now",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Shot Speed - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "positions": "string",
+        "sort_by": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_shot_speed_detail_player_id_season_game_type",
+    "base": "web",
+    "path": "edge/skater-shot-speed-detail/{player_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Shot Speed - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_shot_speed_detail_player_id_now",
+    "base": "web",
+    "path": "edge/skater-shot-speed-detail/{player_id}/now",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Shot Speed - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_shot_location_top_10_position_category_sort_by_season_game_type",
+    "base": "web",
+    "path": "edge/skater-shot-location-top-10/{position}/{category}/{sort_by}/{season}/{game_type}",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Shot Location - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "position": "string",
+        "category": "string",
+        "sort_by": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_shot_location_top_10_position_category_sort_by_now",
+    "base": "web",
+    "path": "edge/skater-shot-location-top-10/{position}/{category}/{sort_by}/now",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Shot Location - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "position": "string",
+        "category": "string",
+        "sort_by": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_shot_location_detail_player_id_season_game_type",
+    "base": "web",
+    "path": "edge/skater-shot-location-detail/{player_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Shot Location - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_skater_shot_location_detail_player_id_now",
+    "base": "web",
+    "path": "edge/skater-shot-location-detail/{player_id}/now",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "Skater Shot Location - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "cat_edge_skater_detail_player_id_season_game_type",
+    "base": "web",
+    "path": "cat/edge/skater-detail/{player_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "CAT - Skater Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "cat_edge_skater_detail_player_id_now",
+    "base": "web",
+    "path": "cat/edge/skater-detail/{player_id}/now",
+    "method": "GET",
+    "category": "skater_data",
+    "cost": 4,
+    "description": "CAT - Skater Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_detail_player_id_season_game_type",
+    "base": "web",
+    "path": "edge/goalie-detail/{player_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_detail_player_id_now",
+    "base": "web",
+    "path": "edge/goalie-detail/{player_id}/now",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_landing_season_game_type",
+    "base": "web",
+    "path": "edge/goalie-landing/{season}/{game_type}",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie Landing endpoint",
+    "params_schema": {
+      "path": {
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_landing_now",
+    "base": "web",
+    "path": "edge/goalie-landing/now",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie Landing endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_comparison_player_id_season_game_type",
+    "base": "web",
+    "path": "edge/goalie-comparison/{player_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie Comparison endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_comparison_player_id_now",
+    "base": "web",
+    "path": "edge/goalie-comparison/{player_id}/now",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie Comparison endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_5v5_top_10_sort_by_season_game_type",
+    "base": "web",
+    "path": "edge/goalie-5v5-top-10/{sort_by}/{season}/{game_type}",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie 5v5 - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "sort_by": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_5v5_top_10_sort_by_now",
+    "base": "web",
+    "path": "edge/goalie-5v5-top-10/{sort_by}/now",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie 5v5 - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "sort_by": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_5v5_detail_player_id_season_game_type",
+    "base": "web",
+    "path": "edge/goalie-5v5-detail/{player_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie 5v5 - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_5v5_detail_player_id_now",
+    "base": "web",
+    "path": "edge/goalie-5v5-detail/{player_id}/now",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie 5v5 - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_shot_location_top_10_category_sort_by_season_game_type",
+    "base": "web",
+    "path": "edge/goalie-shot-location-top-10/{category}/{sort_by}/{season}/{game_type}",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie Shot Location - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "category": "string",
+        "sort_by": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_shot_location_top_10_category_sort_by_now",
+    "base": "web",
+    "path": "edge/goalie-shot-location-top-10/{category}/{sort_by}/now",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie Shot Location - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "category": "string",
+        "sort_by": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_shot_location_detail_player_id_season_game_type",
+    "base": "web",
+    "path": "edge/goalie-shot-location-detail/{player_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie Shot Location - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_shot_location_detail_player_id_now",
+    "base": "web",
+    "path": "edge/goalie-shot-location-detail/{player_id}/now",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie Shot Location - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_edge_save_pctg_top_10_sort_by_season_game_type",
+    "base": "web",
+    "path": "edge/goalie-edge-save-pctg-top-10/{sort_by}/{season}/{game_type}",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie Save Percentage - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "sort_by": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_edge_save_pctg_top_10_sort_by_now",
+    "base": "web",
+    "path": "edge/goalie-edge-save-pctg-top-10/{sort_by}/now",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie Save Percentage - Top 10 endpoint",
+    "params_schema": {
+      "path": {
+        "sort_by": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_save_percentage_detail_player_id_season_game_type",
+    "base": "web",
+    "path": "edge/goalie-save-percentage-detail/{player_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie Save Percentage - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "edge_goalie_save_percentage_detail_player_id_now",
+    "base": "web",
+    "path": "edge/goalie-save-percentage-detail/{player_id}/now",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "Goalie Save Percentage - Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "cat_edge_goalie_detail_player_id_season_game_type",
+    "base": "web",
+    "path": "cat/edge/goalie-detail/{player_id}/{season}/{game_type}",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "CAT - Goalie Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string",
+        "season": "string",
+        "game_type": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "cat_edge_goalie_detail_player_id_now",
+    "base": "web",
+    "path": "cat/edge/goalie-detail/{player_id}/now",
+    "method": "GET",
+    "category": "goalie_data",
+    "cost": 4,
+    "description": "CAT - Goalie Detail endpoint",
+    "params_schema": {
+      "path": {
+        "player_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_players",
+    "base": "stats",
+    "path": "{lang}/players",
+    "method": "GET",
+    "category": "players",
+    "cost": 3,
+    "description": "Get Player Information endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_leaders_skaters_attribute",
+    "base": "stats",
+    "path": "{lang}/leaders/skaters/{attribute}",
+    "method": "GET",
+    "category": "skaters",
+    "cost": 3,
+    "description": "Get Skater Leaders endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string",
+        "attribute": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_milestones_skaters",
+    "base": "stats",
+    "path": "{lang}/milestones/skaters",
+    "method": "GET",
+    "category": "skaters",
+    "cost": 3,
+    "description": "Get Skater Milestones endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_skater",
+    "base": "stats",
+    "path": "{lang}/skater",
+    "method": "GET",
+    "category": "skaters",
+    "cost": 3,
+    "description": "Get Skater Information endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_skater_report",
+    "base": "stats",
+    "path": "{lang}/skater/{report}",
+    "method": "GET",
+    "category": "skaters",
+    "cost": 3,
+    "description": "Get Skater Stats endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string",
+        "report": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_leaders_goalies_attribute",
+    "base": "stats",
+    "path": "{lang}/leaders/goalies/{attribute}",
+    "method": "GET",
+    "category": "goalies",
+    "cost": 3,
+    "description": "Get Goalie Leaders endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string",
+        "attribute": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_goalie_report",
+    "base": "stats",
+    "path": "{lang}/goalie/{report}",
+    "method": "GET",
+    "category": "goalies",
+    "cost": 3,
+    "description": "Get Goalie Stats endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string",
+        "report": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_milestones_goalies",
+    "base": "stats",
+    "path": "{lang}/milestones/goalies",
+    "method": "GET",
+    "category": "goalies",
+    "cost": 3,
+    "description": "Get Goalie Milestones endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_draft",
+    "base": "stats",
+    "path": "{lang}/draft",
+    "method": "GET",
+    "category": "draft",
+    "cost": 3,
+    "description": "Get Draft Information endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_team",
+    "base": "stats",
+    "path": "{lang}/team",
+    "method": "GET",
+    "category": "teams",
+    "cost": 3,
+    "description": "Get Team Information endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_team_id_id",
+    "base": "stats",
+    "path": "{lang}/team/id/{id}",
+    "method": "GET",
+    "category": "teams",
+    "cost": 3,
+    "description": "Get Team By ID endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string",
+        "id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_team_report",
+    "base": "stats",
+    "path": "{lang}/team/{report}",
+    "method": "GET",
+    "category": "teams",
+    "cost": 3,
+    "description": "Get Team Stats endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string",
+        "report": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_franchise",
+    "base": "stats",
+    "path": "{lang}/franchise",
+    "method": "GET",
+    "category": "get_franchise_information",
+    "cost": 3,
+    "description": "Get Franchise Information endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_componentseason",
+    "base": "stats",
+    "path": "{lang}/componentSeason",
+    "method": "GET",
+    "category": "season",
+    "cost": 3,
+    "description": "Get Component Season endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_season",
+    "base": "stats",
+    "path": "{lang}/season",
+    "method": "GET",
+    "category": "season",
+    "cost": 3,
+    "description": "Get Season endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_game",
+    "base": "stats",
+    "path": "{lang}/game",
+    "method": "GET",
+    "category": "game",
+    "cost": 3,
+    "description": "Get Game Information endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_game_meta",
+    "base": "stats",
+    "path": "{lang}/game/meta",
+    "method": "GET",
+    "category": "game",
+    "cost": 3,
+    "description": "Get Game Metadata endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_config",
+    "base": "stats",
+    "path": "{lang}/config",
+    "method": "GET",
+    "category": "configuration",
+    "cost": 3,
+    "description": "Get Configuration endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "ping",
+    "base": "stats",
+    "path": "ping",
+    "method": "GET",
+    "category": "ping_the_server",
+    "cost": 3,
+    "description": "Ping the Server endpoint",
+    "params_schema": {
+      "path": {},
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_country",
+    "base": "stats",
+    "path": "{lang}/country",
+    "method": "GET",
+    "category": "get_country_information",
+    "cost": 3,
+    "description": "Get Country Information endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_shiftcharts_cayenneexp_gameid_game_id",
+    "base": "stats",
+    "path": "{lang}/shiftcharts?cayenneExp=gameId={game_id}",
+    "method": "GET",
+    "category": "get_shift_charts",
+    "cost": 3,
+    "description": "Get Shift Charts endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string",
+        "game_id": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_glossary",
+    "base": "stats",
+    "path": "{lang}/glossary",
+    "method": "GET",
+    "category": "glossary",
+    "cost": 3,
+    "description": "Get Glossary endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string"
+      },
+      "query": {}
+    }
+  },
+  {
+    "name": "lang_content_module_templatekey",
+    "base": "stats",
+    "path": "{lang}/content/module/{templateKey}",
+    "method": "GET",
+    "category": "content_module",
+    "cost": 3,
+    "description": "Get Content Module endpoint",
+    "params_schema": {
+      "path": {
+        "lang": "string",
+        "templateKey": "string"
+      },
+      "query": {}
+    }
+  }
+]

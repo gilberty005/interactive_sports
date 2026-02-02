@@ -5,10 +5,15 @@ from typing import Any, Dict, List, Optional
 
 
 def _parse_json(content: str) -> Dict[str, Any]:
+    if not content or not content.strip():
+        return {"status": "model_empty_response", "raw": content}
     try:
-        return json.loads(content)
+        parsed = json.loads(content)
     except json.JSONDecodeError as exc:
-        raise ValueError("Model did not return valid JSON") from exc
+        return {"status": "model_invalid_json", "raw": content, "error": str(exc)}
+    if isinstance(parsed, dict):
+        return parsed
+    return {"status": "model_non_object_json", "raw": content, "parsed": parsed}
 
 
 def _build_openai_tools(tool_specs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -41,7 +46,7 @@ class OpenAIClient:
                 "id": tool_call.id,
             }
         if not message.content:
-            raise ValueError("No content returned by model")
+            return {"type": "final", "content": {"status": "model_empty_response", "raw": ""}}
         return {"type": "final", "content": _parse_json(message.content)}
 
 
