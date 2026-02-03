@@ -29,7 +29,7 @@ def run_agent_loop(
     system_prompt: str,
     user_message: str,
     tool_specs: List[ToolSpec],
-    max_steps: int = 8,
+    max_steps: int = 20,
     max_tool_calls: int = 20,
     debug: bool = False,
 ) -> AgentResponse:

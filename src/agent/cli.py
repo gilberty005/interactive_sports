@@ -13,6 +13,43 @@ from src.agent.runner import run_agent_loop
 from src.tools.tools import NHLTools, build_tool_specs
 
 
+def _json_dumps(value: object) -> str:
+    return json.dumps(value, default=lambda o: o.__dict__, indent=2, ensure_ascii=False)
+
+
+def _truncate(text: str, limit: int = 8000) -> str:
+    if len(text) <= limit:
+        return text
+    return f"{text[:limit]}\n... (truncated)"
+
+
+def _summarize_payload(payload: object) -> str:
+    if isinstance(payload, list):
+        return f"list[{len(payload)}]"
+    if isinstance(payload, dict):
+        keys = ", ".join(sorted(payload.keys()))
+        return f"dict keys: {keys}"
+    return f"{type(payload).__name__}"
+
+
+def _summarize_tool_output(output: object) -> str:
+    if not isinstance(output, dict):
+        return _summarize_payload(output)
+    if "error" in output:
+        message = output.get("message")
+        return f"error: {output.get('error')}" + (f" ({message})" if message else "")
+    if "payload" in output:
+        payload = output.get("payload")
+        summary = _summarize_payload(payload)
+        if isinstance(payload, dict):
+            if "games" in payload and isinstance(payload["games"], list):
+                summary += f", games: {len(payload['games'])}"
+            if "gameWeek" in payload and isinstance(payload["gameWeek"], list):
+                summary += f", weeks: {len(payload['gameWeek'])}"
+        return summary
+    return _summarize_payload(output)
+
+
 def _build_client(provider: str, model: str):
     if provider == "openai":
         return OpenAIClient(model=model, api_key=os.getenv("OPENAI_API_KEY"), base_url=os.getenv("OPENAI_BASE_URL"))
@@ -66,22 +103,81 @@ def main() -> None:
 
     with md_path.open("w", encoding="utf-8") as handle:
         handle.write("# Agent Result\n\n")
+        handle.write("## Summary\n\n")
+        if isinstance(response.final, dict):
+            status = response.final.get("status")
+            if status:
+                handle.write(f"- Status: {status}\n")
+            error = response.final.get("error")
+            if error:
+                handle.write(f"- Error: {error}\n")
+            handle.write("\n")
+
         handle.write("## Final\n\n")
-        handle.write("```json\n")
-        handle.write(json.dumps(response.final, default=lambda o: o.__dict__, indent=2))
-        handle.write("\n```\n\n")
-        handle.write("## Tool Trace\n\n")
+        if isinstance(response.final, dict) and "decision" in response.final:
+            handle.write("### Decision\n\n")
+            handle.write("```json\n")
+            handle.write(_json_dumps(response.final.get("decision")))
+            handle.write("\n```\n\n")
+
+        if isinstance(response.final, dict) and "rationale" in response.final:
+            rationale = response.final.get("rationale")
+            handle.write("### Rationale\n\n")
+            if isinstance(rationale, list):
+                for item in rationale:
+                    handle.write(f"- {item}\n")
+                handle.write("\n")
+            else:
+                handle.write("```json\n")
+                handle.write(_json_dumps(rationale))
+                handle.write("\n```\n\n")
+
+        if isinstance(response.final, dict) and "data_used" in response.final:
+            data_used = response.final.get("data_used")
+            handle.write("### Data Used\n\n")
+            tool_calls = data_used.get("tool_calls") if isinstance(data_used, dict) else None
+            if isinstance(tool_calls, list):
+                handle.write("| Tool | Path | Date Coverage | Notes |\n")
+                handle.write("| --- | --- | --- | --- |\n")
+                for entry in tool_calls:
+                    if not isinstance(entry, dict):
+                        continue
+                    tool = entry.get("tool", "")
+                    path = entry.get("path_template") or entry.get("path") or ""
+                    date_coverage = entry.get("date_coverage", "")
+                    notes = entry.get("notes", "")
+                    handle.write(f"| {tool} | {path} | {date_coverage} | {notes} |\n")
+                handle.write("\n")
+            else:
+                handle.write("```json\n")
+                handle.write(_json_dumps(data_used))
+                handle.write("\n```\n\n")
+
+        if isinstance(response.final, dict) and "raw" in response.final:
+            handle.write("### Model Raw Output (truncated)\n\n")
+            handle.write("```text\n")
+            handle.write(_truncate(str(response.final.get("raw"))))
+            handle.write("\n```\n\n")
+
+        if not isinstance(response.final, dict) or "decision" not in response.final:
+            handle.write("### Final (raw JSON)\n\n")
+            handle.write("```json\n")
+            handle.write(_json_dumps(response.final))
+            handle.write("\n```\n\n")
+
+        handle.write("## Tool Trace (summary)\n\n")
         for idx, call in enumerate(response.trace.tool_calls, start=1):
             handle.write(f"### Tool {idx}: {call.name}\n\n")
             handle.write("Arguments:\n")
             handle.write("```json\n")
-            handle.write(json.dumps(call.arguments, indent=2))
+            handle.write(_truncate(_json_dumps(call.arguments)))
             handle.write("\n```\n\n")
             result = response.trace.tool_results[idx - 1].output if idx - 1 < len(response.trace.tool_results) else None
-            handle.write("Output:\n")
-            handle.write("```json\n")
-            handle.write(json.dumps(result, indent=2, default=str))
+            handle.write("Output summary:\n")
+            handle.write("```text\n")
+            handle.write(_summarize_tool_output(result))
             handle.write("\n```\n\n")
+        handle.write("Full outputs are saved in the JSON result file.\n")
 
     print(f"Wrote results to {json_path} and {md_path}")
 

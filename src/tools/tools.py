@@ -245,10 +245,15 @@ class NHLTools:
         if self._allow_future_dates(path_template):
             return None
 
-        if "/now" in path_template or path_template.endswith("now"):
+        if (
+            "/now" in path_template
+            or path_template.endswith("now")
+            or "/current" in path_template
+            or path_template.endswith("current")
+        ):
             return {
                 "error": "as_of_date_violation",
-                "message": "Endpoints using /now are not allowed when as_of_date is set.",
+                "message": "Endpoints using /now or /current are not allowed when as_of_date is set.",
                 "path_template": path_template,
                 "as_of_date": self.as_of_date,
             }

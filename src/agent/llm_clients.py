@@ -1,7 +1,32 @@
 from __future__ import annotations
 
 import json
+import re
 from typing import Any, Dict, List, Optional
+
+
+def _extract_json_candidate(content: str) -> str | None:
+    fenced_match = re.search(r"```json\s*(\{.*?\})\s*```", content, re.DOTALL)
+    if fenced_match:
+        return fenced_match.group(1)
+    fenced_generic = re.search(r"```\s*(\{.*?\})\s*```", content, re.DOTALL)
+    if fenced_generic:
+        return fenced_generic.group(1)
+
+    start = content.find("{")
+    if start == -1:
+        return None
+
+    depth = 0
+    for idx in range(start, len(content)):
+        char = content[idx]
+        if char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth == 0:
+                return content[start : idx + 1]
+    return None
 
 
 def _parse_json(content: str) -> Dict[str, Any]:
@@ -10,7 +35,18 @@ def _parse_json(content: str) -> Dict[str, Any]:
     try:
         parsed = json.loads(content)
     except json.JSONDecodeError as exc:
-        return {"status": "model_invalid_json", "raw": content, "error": str(exc)}
+        candidate = _extract_json_candidate(content)
+        if candidate:
+            try:
+                parsed = json.loads(candidate)
+            except json.JSONDecodeError as candidate_exc:
+                return {
+                    "status": "model_invalid_json",
+                    "raw": content,
+                    "error": str(candidate_exc),
+                }
+        else:
+            return {"status": "model_invalid_json", "raw": content, "error": str(exc)}
     if isinstance(parsed, dict):
         return parsed
     return {"status": "model_non_object_json", "raw": content, "parsed": parsed}
