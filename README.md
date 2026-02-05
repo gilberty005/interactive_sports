@@ -1,24 +1,22 @@
-# Fantasy Agent Eval (Phase A)
+# Fantasy Agent Eval
 
-This repo contains a minimal, tool-using NHL fantasy agent scaffold. The agent is grounded: it must call tools for schedules and game logs, and returns a strict JSON final answer with a trace of data used.
+NHL fantasy prediction and evaluation system focused on fantasy scoring outcomes.
 
 ## Structure
 
-- `prompts/system_prompt_v0.md`: system prompt, treated as code.
-- `src/agent/`: prompt loading and agent loop.
-- `src/tools/`: NHL API client and tool implementations.
+- `prompts/system_prompt_v0.md`: system prompt and output schema.
+- `src/agent/`: CLI, runner, and LLM client wiring.
+- `src/tools/`: NHL API tools and fantasy scoring rules.
 - `src/data/`: cache and normalization helpers.
 - `tests/`: smoke tests for tool calls.
 
-## Quickstart
-
-Install deps:
+## Setup
 
 ```
 pip install -e .[dev]
 ```
 
-Run tests (networked):
+Networked tests:
 
 ```
 pytest -m network
@@ -26,26 +24,16 @@ pytest -m network
 
 ## Run the agent
 
-Install a provider SDK:
-
 ```
 pip install -e .[llm]
-```
-
-Set an API key:
-
-- OpenAI: `export OPENAI_API_KEY=...`
-- Gemini: `export GEMINI_API_KEY=...` (or `GOOGLE_API_KEY`)
-- Anthropic: `export ANTHROPIC_API_KEY=...`
-
-Run a query:
-
-```
-python -m src.agent.cli --provider openai --model gpt-4o-mini "How many games does Toronto play Jan 22–28, 2024?"
+export ANTHROPIC_API_KEY=...
+python -m src.agent.cli --provider anthropic --model claude-sonnet-4-5-20250929 --as-of 2018-01-15 --verbose
 ```
 
 ## Notes
 
-- The agent loop in `src/agent/runner.py` is provider-agnostic; plug in an LLM client that implements the `generate()` protocol.
-- The tools call the NHL Stats API and cache responses on disk under `.cache/nhl_api/`.
-# interactive_sports
+- This system is only for fantasy prediction and evaluation, not general Q&A.
+- Tool calls use the NHL Stats API and cache under `.cache/nhl_api/`.
+- The agent loop in `src/agent/runner.py` is provider-agnostic.
+- Fantasy scoring rules live in `src/tools/tools.py` (`DEFAULT_FANTASY_SCORING`).
+- Rules are applied by the tools during evaluation; update the defaults there to change baseline scoring.
