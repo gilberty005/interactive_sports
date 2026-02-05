@@ -41,13 +41,32 @@ def run_agent_loop(
     tools_by_name = {tool.name: tool for tool in tool_specs}
     trace = AgentTrace()
     tool_calls_used = 0
+    retried_invalid_json = False
 
     for _ in range(max_steps):
         response = llm_client.generate(messages=messages, tools=tool_payloads)
         response_type = response.get("type")
 
         if response_type == "final":
-            return AgentResponse(final=response.get("content"), trace=trace)
+            content = response.get("content")
+            if (
+                not retried_invalid_json
+                and isinstance(content, dict)
+                and content.get("status") == "model_invalid_json"
+            ):
+                retried_invalid_json = True
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": (
+                            "Your last response was not valid JSON. "
+                            "Return ONLY the JSON object that matches the required schema. "
+                            "No prose, no markdown, no code fences."
+                        ),
+                    }
+                )
+                continue
+            return AgentResponse(final=content, trace=trace)
 
         if response_type != "tool_call":
             raise ValueError(f"Unsupported response type: {response_type}")

@@ -1,4 +1,6 @@
 .env
+docs/
+results/
 
 # Python bytecode / cache
 __pycache__/

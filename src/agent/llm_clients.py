@@ -16,7 +16,6 @@ def _extract_json_candidate(content: str) -> str | None:
     start = content.find("{")
     if start == -1:
         return None
-
     depth = 0
     for idx in range(start, len(content)):
         char = content[idx]

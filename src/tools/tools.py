@@ -192,6 +192,36 @@ ENDPOINT_CATALOG: List[Dict[str, Any]] = load_endpoint_catalog()
 
 DATE_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
+DEFAULT_FANTASY_SCORING: Dict[str, float] = {
+    "goals": 2.0,
+    "assists": 1.0,
+    "shots": 0.1,
+    "points": 0.0,
+    "powerPlayPoints": 0.5,
+    "shortHandedPoints": 1.0,
+    "plusMinus": 0.0,
+    "pim": 0.0,
+    "hits": 0.0,
+    "blocks": 0.0,
+    "wins": 3.0,
+    "saves": 0.2,
+    "goalsAgainst": -1.0,
+    "shutouts": 2.0,
+}
+
+FANTASY_STAT_ALIASES: Dict[str, str] = {
+    "ppp": "powerPlayPoints",
+    "power_play_points": "powerPlayPoints",
+    "shp": "shortHandedPoints",
+    "short_handed_points": "shortHandedPoints",
+    "plus_minus": "plusMinus",
+    "penalty_minutes": "pim",
+    "pim": "pim",
+    "shots_on_goal": "shots",
+    "sog": "shots",
+    "goals_against": "goalsAgainst",
+}
+
 
 def _parse_date(value: str) -> date | None:
     if not isinstance(value, str) or not DATE_PATTERN.match(value):
@@ -200,6 +230,49 @@ def _parse_date(value: str) -> date | None:
         return datetime.strptime(value, "%Y-%m-%d").date()
     except ValueError:
         return None
+
+
+def _coerce_float(value: Any) -> float | None:
+    if value is None:
+        return None
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _parse_toi_to_seconds(value: Any) -> int:
+    if value is None:
+        return 0
+    text = str(value).strip()
+    if not text:
+        return 0
+    parts = text.split(":")
+    try:
+        if len(parts) == 2:
+            minutes, seconds = parts
+            return int(minutes) * 60 + int(seconds)
+        if len(parts) == 3:
+            hours, minutes, seconds = parts
+            return int(hours) * 3600 + int(minutes) * 60 + int(seconds)
+    except ValueError:
+        return 0
+    return 0
+
+
+def _normalize_scoring_rules(scoring: Dict[str, Any] | None) -> Dict[str, float] | None:
+    if scoring is None:
+        return dict(DEFAULT_FANTASY_SCORING)
+    if not isinstance(scoring, dict):
+        return None
+    normalized = dict(DEFAULT_FANTASY_SCORING)
+    for key, value in scoring.items():
+        stat = FANTASY_STAT_ALIASES.get(str(key), str(key))
+        weight = _coerce_float(value)
+        if weight is None:
+            return None
+        normalized[stat] = weight
+    return normalized
 
 
 def _format_path(path_template: str, path_params: Dict[str, Any]) -> str:
@@ -258,6 +331,25 @@ class NHLTools:
                 "as_of_date": self.as_of_date,
             }
 
+        game_id = path_params.get("game_id") if isinstance(path_params, dict) else None
+        if game_id and "gamecenter/" in path_template:
+            game_date = self._get_game_date_for_game_id(str(game_id))
+            if game_date is None:
+                return {
+                    "error": "as_of_date_violation",
+                    "message": "Unable to validate game date for game_id.",
+                    "as_of_date": self.as_of_date,
+                    "game_id": game_id,
+                }
+            if game_date > cutoff:
+                return {
+                    "error": "as_of_date_violation",
+                    "message": "game_id is after as_of_date.",
+                    "as_of_date": self.as_of_date,
+                    "game_id": game_id,
+                    "game_date": game_date.isoformat(),
+            }
+
         for source_name, params in (("path_params", path_params), ("query_params", query_params)):
             for key, value in params.items():
                 parsed = _parse_date(str(value))
@@ -270,6 +362,63 @@ class NHLTools:
                     }
 
         return None
+
+    def _get_game_date_for_game_id(self, game_id: str) -> date | None:
+        try:
+            payload = self.client.get_json(f"gamecenter/{game_id}/landing")
+        except Exception:
+            return None
+        if not isinstance(payload, dict):
+            return None
+        for key in ("gameDate", "startTimeUTC", "gameTimeUTC"):
+            value = payload.get(key)
+            if not value:
+                continue
+            parsed = _parse_date(str(value)[:10])
+            if parsed:
+                return parsed
+        return None
+
+    def _validate_scoring_window(self, start_date: str, end_date: str) -> Dict[str, Any] | None:
+        start = _parse_date(start_date)
+        end = _parse_date(end_date)
+        if not start or not end:
+            return {
+                "error": "invalid_date",
+                "message": "start_date and end_date must be YYYY-MM-DD",
+                "start_date": start_date,
+                "end_date": end_date,
+            }
+        if end < start:
+            return {
+                "error": "invalid_date_range",
+                "message": "end_date must be on/after start_date",
+                "start_date": start_date,
+                "end_date": end_date,
+            }
+        if self.as_of_date:
+            cutoff = _parse_date(self.as_of_date)
+            if cutoff and end > cutoff:
+                return {
+                    "error": "as_of_date_violation",
+                    "message": "end_date is after as_of_date.",
+                    "as_of_date": self.as_of_date,
+                    "end_date": end_date,
+                }
+        return None
+
+    def _collect_game_ids_for_week(self, start_date: str, end_date: str) -> List[int]:
+        payload = self.client.get_json(f"schedule/{start_date}")
+        game_ids: List[int] = []
+        for day in payload.get("gameWeek", []):
+            date_str = (day.get("date") or "")[:10]
+            if not (start_date <= date_str <= end_date):
+                continue
+            for game in day.get("games", []):
+                game_id = game.get("id") or game.get("gameId") or game.get("gamePk")
+                if game_id is not None:
+                    game_ids.append(int(game_id))
+        return list(dict.fromkeys(game_ids))
 
     def _filter_payload_as_of(self, payload: Any, path_template: str) -> Any:
         if not self.as_of_date:
@@ -372,6 +521,188 @@ class NHLTools:
             "path_params": path_params,
             "query_params": query_params,
             "payload": self._filter_payload_as_of(payload, path_template),
+        }
+
+    def fantasy_score_player_week(
+        self,
+        player_id: int,
+        start_date: str,
+        end_date: str,
+        scoring: Dict[str, Any] | None = None,
+    ) -> Dict[str, Any]:
+        scoring_rules = _normalize_scoring_rules(scoring)
+        if scoring_rules is None:
+            return {
+                "error": "invalid_scoring_rules",
+                "message": "scoring must be a JSON object of numeric weights",
+                "scoring": scoring,
+            }
+
+        date_error = self._validate_scoring_window(start_date, end_date)
+        if date_error:
+            return date_error
+
+        season_id = season_id_from_date(end_date)
+        payload = self.client.get_json(f"player/{player_id}/game-log/{season_id}/2")
+        splits = payload.get("gameLog", payload.get("games", []))
+
+        totals = {stat: 0.0 for stat in scoring_rules}
+        total_points = 0.0
+        games = []
+
+        for split in splits:
+            game_date = (split.get("gameDate") or split.get("date") or "")[:10]
+            if not (start_date <= game_date <= end_date):
+                continue
+            stat_line = split.get("stat", split)
+            game_stats = {}
+            for stat, weight in scoring_rules.items():
+                value = _coerce_float(stat_line.get(stat))
+                if value is None:
+                    value = 0.0
+                game_stats[stat] = value
+                totals[stat] += value
+                total_points += value * weight
+            games.append(
+                {
+                    "date": game_date,
+                    "opponent": split.get("opponent") or split.get("opponentAbbrev"),
+                    "game_id": split.get("gameId") or split.get("gamePk"),
+                    "stats": game_stats,
+                }
+            )
+
+        return {
+            "player_id": player_id,
+            "start_date": start_date,
+            "end_date": end_date,
+            "games_played": len(games),
+            "fantasy_points": round(total_points, 3),
+            "stat_totals": {k: round(v, 3) for k, v in totals.items()},
+            "scoring": scoring_rules,
+            "games": games,
+        }
+
+    def fantasy_best_players_week(
+        self,
+        player_ids: List[int],
+        start_date: str,
+        end_date: str,
+        scoring: Dict[str, Any] | None = None,
+        top_n: int = 10,
+    ) -> Dict[str, Any]:
+        scoring_rules = _normalize_scoring_rules(scoring)
+        if scoring_rules is None:
+            return {
+                "error": "invalid_scoring_rules",
+                "message": "scoring must be a JSON object of numeric weights",
+                "scoring": scoring,
+            }
+
+        date_error = self._validate_scoring_window(start_date, end_date)
+        if date_error:
+            return date_error
+
+        results = []
+        for player_id in player_ids:
+            result = self.fantasy_score_player_week(
+                player_id=player_id,
+                start_date=start_date,
+                end_date=end_date,
+                scoring=scoring_rules,
+            )
+            if "error" in result:
+                continue
+            results.append(result)
+
+        results.sort(key=lambda r: r.get("fantasy_points", 0), reverse=True)
+        return {
+            "start_date": start_date,
+            "end_date": end_date,
+            "scoring": scoring_rules,
+            "top_n": top_n,
+            "results": results[: max(1, top_n)],
+        }
+
+    def fantasy_best_players_week_from_games(
+        self,
+        start_date: str,
+        end_date: str,
+        scoring: Dict[str, Any] | None = None,
+        top_n: int = 10,
+        min_toi_seconds: int = 60,
+    ) -> Dict[str, Any]:
+        scoring_rules = _normalize_scoring_rules(scoring)
+        if scoring_rules is None:
+            return {
+                "error": "invalid_scoring_rules",
+                "message": "scoring must be a JSON object of numeric weights",
+                "scoring": scoring,
+            }
+
+        date_error = self._validate_scoring_window(start_date, end_date)
+        if date_error:
+            return date_error
+
+        game_ids = self._collect_game_ids_for_week(start_date, end_date)
+        player_totals: Dict[int, Dict[str, Any]] = {}
+
+        for game_id in game_ids:
+            boxscore = self.client.get_json(f"gamecenter/{game_id}/boxscore")
+            player_stats = boxscore.get("playerByGameStats", {})
+            for team_key in ("homeTeam", "awayTeam"):
+                team = player_stats.get(team_key, {})
+                for group_key in ("forwards", "defense", "goalies", "skaters"):
+                    for player in team.get(group_key, []) or []:
+                        player_id = player.get("playerId") or player.get("id")
+                        if player_id is None:
+                            continue
+                        toi = player.get("toi") or player.get("timeOnIce")
+                        if _parse_toi_to_seconds(toi) < min_toi_seconds:
+                            continue
+                        entry = player_totals.setdefault(
+                            int(player_id),
+                            {
+                                "player_id": int(player_id),
+                                "name": player.get("name") or player.get("fullName"),
+                                "team": player.get("teamAbbrev"),
+                                "games": set(),
+                                "stat_totals": {stat: 0.0 for stat in scoring_rules},
+                            },
+                        )
+                        entry["games"].add(game_id)
+                        stat_line = player.get("stat", player)
+                        for stat in scoring_rules:
+                            value = _coerce_float(stat_line.get(stat))
+                            if value is None:
+                                value = 0.0
+                            entry["stat_totals"][stat] += value
+
+        results = []
+        for entry in player_totals.values():
+            totals = entry["stat_totals"]
+            fantasy_points = sum(totals[stat] * weight for stat, weight in scoring_rules.items())
+            results.append(
+                {
+                    "player_id": entry["player_id"],
+                    "name": entry.get("name"),
+                    "team": entry.get("team"),
+                    "games_played": len(entry["games"]),
+                    "fantasy_points": round(fantasy_points, 3),
+                    "stat_totals": {k: round(v, 3) for k, v in totals.items()},
+                    "scoring": scoring_rules,
+                }
+            )
+
+        results.sort(key=lambda r: r.get("fantasy_points", 0), reverse=True)
+        return {
+            "start_date": start_date,
+            "end_date": end_date,
+            "scoring": scoring_rules,
+            "top_n": top_n,
+            "results": results,
+            "top_results": results[: max(1, top_n)],
+            "game_count": len(game_ids),
         }
 
     def search_player(self, name: str) -> Dict[str, Any]:
@@ -584,8 +915,8 @@ class NHLTools:
         return self.stats_client.get_json("en/season")
 
 
-def build_tool_specs(tools: NHLTools) -> List[ToolSpec]:
-    return [
+def build_tool_specs(tools: NHLTools, include_eval_tools: bool = True) -> List[ToolSpec]:
+    specs = [
         ToolSpec(
             name="nhl_api_list_endpoints",
             description="List the allowed NHL API endpoint catalog the agent can use. Optionally filter by category.",
@@ -615,4 +946,63 @@ def build_tool_specs(tools: NHLTools) -> List[ToolSpec]:
             handler=tools.nhl_api_call,
         ),
     ]
+    if include_eval_tools:
+        specs.extend(
+            [
+                ToolSpec(
+                    name="fantasy_score_player_week",
+                    description=(
+                        "Score a single player's fantasy points between start_date and end_date using optional scoring weights."
+                    ),
+                    parameters={
+                        "type": "object",
+                        "properties": {
+                            "player_id": {"type": "integer"},
+                            "start_date": {"type": "string"},
+                            "end_date": {"type": "string"},
+                            "scoring": {"type": "object"},
+                        },
+                        "required": ["player_id", "start_date", "end_date"],
+                    },
+                    handler=tools.fantasy_score_player_week,
+                ),
+                ToolSpec(
+                    name="fantasy_best_players_week",
+                    description=(
+                        "Rank a list of players by fantasy points between start_date and end_date using optional scoring weights."
+                    ),
+                    parameters={
+                        "type": "object",
+                        "properties": {
+                            "player_ids": {"type": "array", "items": {"type": "integer"}},
+                            "start_date": {"type": "string"},
+                            "end_date": {"type": "string"},
+                            "scoring": {"type": "object"},
+                            "top_n": {"type": "integer"},
+                        },
+                        "required": ["player_ids", "start_date", "end_date"],
+                    },
+                    handler=tools.fantasy_best_players_week,
+                ),
+                ToolSpec(
+                    name="fantasy_best_players_week_from_games",
+                    description=(
+                        "Rank all players by fantasy points for a week by aggregating game boxscores."
+                    ),
+                    parameters={
+                        "type": "object",
+                        "properties": {
+                            "start_date": {"type": "string"},
+                            "end_date": {"type": "string"},
+                            "scoring": {"type": "object"},
+                            "top_n": {"type": "integer"},
+                            "min_toi_seconds": {"type": "integer"},
+                        },
+                        "required": ["start_date", "end_date"],
+                    },
+                    handler=tools.fantasy_best_players_week_from_games,
+                ),
+            ]
+        )
+    return specs
 
