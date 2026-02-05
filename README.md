@@ -16,12 +16,6 @@ NHL fantasy prediction and evaluation system focused on fantasy scoring outcomes
 pip install -e .[dev]
 ```
 
-Networked tests:
-
-```
-pytest -m network
-```
-
 ## Run the agent
 
 ```
@@ -31,8 +25,6 @@ python -m src.agent.cli --provider anthropic --model claude-sonnet-4-5-20250929 
 ```
 
 ## Notes
-
-- This system is only for fantasy prediction and evaluation, not general Q&A.
 - Tool calls use the NHL Stats API and cache under `.cache/nhl_api/`.
 - The agent loop in `src/agent/runner.py` is provider-agnostic.
 - Fantasy scoring rules live in `src/tools/tools.py` (`DEFAULT_FANTASY_SCORING`).
